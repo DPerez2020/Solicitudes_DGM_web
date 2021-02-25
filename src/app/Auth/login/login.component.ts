@@ -1,4 +1,6 @@
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,private auth:AuthService) { }
 
+  loginForm: FormGroup;
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
   }
 
+  Validations(): boolean{
+    if (this.loginForm.controls.email.errors) {
+      if (this.loginForm.controls.email.errors.required) {
+        // this.OpenModal();
+      }else if (this.loginForm.controls.email.errors.email) {
+        // this.OpenModal();
+      }
+      return false;
+    }else if (this.loginForm.controls.password.errors) {
+      if (this.loginForm.controls.password.errors.required) {
+        // this.OpenModal();
+      }
+      return false;
+    }
+    return true;
+  }
+
+  SignIn(): void{
+    if (!this.Validations()) {
+      return;
+    }
+    let result=this.auth.Login(this.loginForm.get('email').value, this.loginForm.get('password').value);
+  }
 }
