@@ -1,0 +1,142 @@
+<app-navbar></app-navbar>
+<div class="container" style="margin-top: 50px;">
+  <div>
+    <button type="button" class="btn btn-primary" (click)="openModal(addPerson,undefined)" >Agregar persona +</button>
+  </div>
+  <div class="row" style="margin-bottom: 30px;">
+    <div class="col">Nombre</div>
+    <div class="col">Pasaporte</div>
+    <div class="col"></div>
+  </div>
+  <div *ngFor="let person of persons" class="row">
+    <div class="col">
+      <label>{{person.nombre}} {{person.apellido}}</label>
+    </div>
+    <div class="col">
+      <label>{{person.pasaporte}}</label>
+    </div>
+    <div class="col">
+      <div class="btn-group" btnRadioGroup [(ngModel)]="uncheckableRadioModel">
+        <label class="btn btn-info" btnRadio="Left"
+               uncheckable tabindex="0" role="button" (click)="openModal(SeePerson,person)" >Ver</label>
+        <label class="btn btn-info" btnRadio="Left"
+               uncheckable tabindex="0" role="button" (click)="openModal(DeletePerson,person)" >Eliminar</label>
+        <label class="btn btn-info" btnRadio="Middle"
+               uncheckable tabindex="0" role="button" (click)="openModal(UpdatePerson,person)" >Actualizar</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #addPerson>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Agregar persona</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="mt-3" [formGroup]="userForm">
+      <div class="form-group mt-3">
+        <label for="nombre" class="greenFont">Nombre</label>
+        <input type="text" class="form-control customInput" id="nombre"  formControlName="nombre">
+      </div>  
+      <div class="form-group mt-3">
+        <label for="apellido" class="greenFont">Apellido</label>
+        <input type="text" class="form-control customInput" id="apellido"  formControlName="apellido">
+      </div>   
+      <div class="form-group mt-3">
+        <label for="direccion" class="greenFont">Dirrecion</label>
+        <input type="text" class="form-control customInput" id="direccion"  formControlName="direccion">
+      </div>     
+      <div class="form-group mt-3">
+        <label for="apellido" class="greenFont">Fecha de nacimiento</label>
+        <input type="date" class="form-control customInput" id="fechaNacimiento"  formControlName="fechaNacimiento">
+      </div>   
+      <div class="form-group mt-3">
+        <label for="pasaporte" class="greenFont">Pasaporte</label>
+        <input type="text" class="form-control customInput" id="pasaporte" formControlName="pasaporte">
+      </div>
+      <div class="form-group mt-3">
+        <label for="sexo" class="greenFont">Sexo</label>
+        <select formControlName="sexo">
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>        
+      </div>
+      <div class="form-group mt-3">
+        <label for="foto" class="greenFont">Foto</label>
+        <input type="file" class="form-control customInput" id="foto">
+      </div>      
+    </form>
+    <button type="button" class="btn btn-default" (click)="SaveChanges()" >Guardar</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Cancelar</button>
+  </div>
+</ng-template>
+<ng-template #SeePerson>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Detalle Persona</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <label>Nombre completo: {{currentObject.nombre+' '+ currentObject.apellido}}</label><br>
+    <label>Pasaporte: {{currentObject.pasaporte}}</label><br>
+    <label>Direccion: {{currentObject.direccion}}</label><br>
+    <label>Fecha nacimiento: {{currentObject.fechaNacimiento}}</label><br>
+    <label>Sexo: {{currentObject.sexo}}</label>
+  </div>
+</ng-template>
+<ng-template #UpdatePerson>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Actualizar Persona</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="mt-3" [formGroup]="userForm">
+      <div class="form-group mt-3">
+        <label for="nombre" class="greenFont">Nombre</label>
+        <input type="text" class="form-control customInput" id="nombre"  formControlName="nombre">
+      </div>  
+      <div class="form-group mt-3">
+        <label for="apellido" class="greenFont">Apellido</label>
+        <input type="text" class="form-control customInput" id="apellido"  formControlName="apellido">
+      </div>   
+      <div class="form-group mt-3">
+        <label for="direccion" class="greenFont">Dirrecion</label>
+        <input type="text" class="form-control customInput" id="direccion"  formControlName="direccion">
+      </div>     
+      <div class="form-group mt-3">
+        <label for="apellido" class="greenFont">Fecha de nacimiento</label>
+        <input type="date" class="form-control customInput" id="fechaNacimiento"  formControlName="fechaNacimiento">
+      </div>   
+      <div class="form-group mt-3">
+        <label for="pasaporte" class="greenFont">Pasaporte</label>
+        <input type="text" class="form-control customInput" id="pasaporte" formControlName="pasaporte">
+      </div>
+      <div class="form-group mt-3">
+        <label for="sexo" class="greenFont">Sexo</label>
+        <select formControlName="sexo">
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>        
+      </div>
+      <div class="form-group mt-3">
+        <label for="foto" class="greenFont">Foto</label>
+        <input type="file" class="form-control customInput" id="foto">
+      </div>      
+    </form>
+    <button type="button" class="btn btn-default" (click)="SaveChangesUpdate()" >Guardar</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Cancelar</button>
+  </div>
+</ng-template>
+<ng-template #DeletePerson>
+  <div class="modal-body text-center">
+    <p>¿Estas seguro de querer eliminar a esta persona?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Si</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>
