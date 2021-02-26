@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder,private auth:AuthService) { }
+  constructor(private formBuilder: FormBuilder,private auth:AuthService,private router:Router) { }
 
   loginForm: FormGroup;
   ngOnInit(): void {
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]]
     });
   }
-
+  
   Validations(): boolean{
     if (this.loginForm.controls.email.errors) {
       if (this.loginForm.controls.email.errors.required) {
@@ -36,10 +37,19 @@ export class LoginComponent implements OnInit {
     return true;
   }
 
+  OpenModal():void{
+
+  }
+
   SignIn(): void{
     if (!this.Validations()) {
       return;
     }
     let result=this.auth.Login(this.loginForm.get('email').value, this.loginForm.get('password').value);
+    if (result) {
+      this.router.navigate(["/person"]);
+    }else{
+      this.OpenModal();
+    }
   }
 }

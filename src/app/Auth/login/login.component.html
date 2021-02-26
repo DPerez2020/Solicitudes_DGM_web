@@ -6,7 +6,9 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-11 col-sm-11 col-md-11 col-lg-5 col-xl-4">
-            <img src="../../../../assets/img.png" alt="Lokocash" title="Lokocash" class="loginIcon">
+            <div class="loginIcon">
+                <img src="../../../../assets/img.png" alt="DGM" title="DGM">
+            </div>
             <h1 class="text-center greenFont m-0 p-0 mt-4">Iniciar sesión</h1>
             <p class="text-center lead greenFont m-0 p-0 mt-1">Complete el formulario</p>
             <form class="mt-3" [formGroup]="loginForm">
@@ -20,7 +22,9 @@
                     <input type="password" class="form-control customInput" id="exampleInputPassword1" placeholder="••••••••••••••••••••" formControlName="password">
                 </div>
             </form>
-            <button class="btn text-center text-white greenBackground loginButton mt-4 mb-5 btn-lg btn-block" [disabled]="loginForm.invalid" (click)="SignIn()">Iniciar sesión</button>
+            <button class="btn text-center text-white greenBackground loginButton mt-4 mb-5 btn-lg btn-block loginButton" 
+            
+             [disabled]="loginForm.invalid" (click)="SignIn()">Iniciar sesión</button>
         </div>
     </div>
   </div>
